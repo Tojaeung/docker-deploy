@@ -30,8 +30,10 @@ const MainComponent = () => {
       <button onClick={getAllNumbers}>Get all numbers</button>
       <span className="title">Values</span>
       <div className="values">
-        {values.map((value) => (
-          <div className="value">{value}</div>
+        {values.map((value, index) => (
+          <div className="value" key={index}>
+            {value}
+          </div>
         ))}
       </div>
       <form onSubmit={saveNumber} className="form">

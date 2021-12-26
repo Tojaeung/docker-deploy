@@ -28,12 +28,12 @@ app.get("/", (req, res) => {
   res.send("HI");
 });
 
-app.get("/value/all", async (req, res) => {
+app.get("/api/value/all", async (req, res) => {
   const values = await pgClient.query("SELECT * FROM values");
   res.send(values);
 });
 
-app.post("/values", async (req, res) => {
+app.post("/api/values", async (req, res) => {
   if (!req.body.value) return res.send({ working: false });
   pgClient.query("INSERT INTO values(number) VALUES($1)", [req.body.value]);
   res.send({ working: true });

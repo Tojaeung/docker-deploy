@@ -1,9 +1,11 @@
-version: "3"
+version: "3.9"
 services:
   postgres:
     image: postgres
+    env_file:
+      - /.env
     environment:
-      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_PASSWORD=${PGPASSWORD}
 
   nginx:
     depends_on:
@@ -14,7 +16,8 @@ services:
       dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - "3050:80"
+      - "8080:80"
+
   api:
     build:
       dockerfile: Dockerfile.dev
@@ -22,12 +25,15 @@ services:
     volumes:
       - /app/node_modules
       - ./server:/app
+    env_file:
+      - /.env
     environment:
       - PGUSER=postgres
       - PGHOST=postgres
       - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
+      - PGPASSWORD=${PGPASSWORD}
       - PGPORT=5432
+
   client:
     stdin_open: true
     build:
