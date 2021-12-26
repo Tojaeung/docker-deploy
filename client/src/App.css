@@ -1,0 +1,12 @@
+.haeder {
+  margin-bottom: 40px;
+  background: #eee;
+}
+.haeder a {
+  margin-left: 20px;
+}
+
+.main {
+  padding: 10px;
+  background: #ccc;
+}
