@@ -4,6 +4,8 @@ services:
     image: postgres
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - /pgdata/:/var/lib/postgres/data
 
   nginx:
     depends_on:
@@ -18,7 +20,7 @@ services:
 
   api:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: "./server"
     volumes:
       - /app/node_modules
@@ -27,7 +29,7 @@ services:
   client:
     stdin_open: true
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./client
     volumes:
       - /app/node_modules
