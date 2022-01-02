@@ -28,8 +28,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: ${{ secret.Docker_HUB_USERNAME }}
-          password: ${{ secret.Docker_HUB_PASSWORD }}
+          username: ${{ secrets.Docker_HUB_USERNAME }}
+          password: ${{ secrets.Docker_HUB_PASSWORD }}
           logout: true
       
       - name: Build frontend image
@@ -39,7 +39,7 @@ jobs:
           file: ./client/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       
@@ -75,12 +75,19 @@ jobs:
     name: Deploy
     runs-on: [ self-hosted, label-postgres ]
     steps:
-      - name: remove existing docker
+      - name: remove existing docker containers
         run: |
           sudo docker rm -f ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
           sudo docker rm -f ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
           sudo docker rm -f ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
           sudo docker rm -f ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-postgres:latest
+      
+      - name: remove existing docker images
+        run: |
+          sudo docker rmi ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
+          sudo docker rmi ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
+          sudo docker rmi ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
+          sudo docker rmi ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-postgres:latest
       
       - name: make new docker
         run: sudo docker-compose up
