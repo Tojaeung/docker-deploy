@@ -77,17 +77,17 @@ jobs:
     steps:
       - name: remove existing docker containers
         run: |
-          sudo docker rm -f ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
-          sudo docker rm -f ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
-          sudo docker rm -f ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
-          sudo docker rm -f ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-postgres:latest
+          sudo docker rm -f ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
+          sudo docker rm -f ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
+          sudo docker rm -f ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
+          sudo docker rm -f ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-postgres:latest
       
       - name: remove existing docker images
         run: |
-          sudo docker rmi ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
-          sudo docker rmi ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
-          sudo docker rmi ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
-          sudo docker rmi ${{ secret.DOCKER_HUB_USERNAME }}/postgres-app-postgres:latest
+          sudo docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
+          sudo docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
+          sudo docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
+          sudo docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-postgres:latest
       
       - name: make new docker
         run: sudo docker-compose up
