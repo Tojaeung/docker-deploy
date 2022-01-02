@@ -76,13 +76,13 @@ jobs:
     runs-on: [ self-hosted, label-postgres ]
     steps:
       - name: remove existing docker containers
-        run: docker container rm -f $(docker container ls -aq)
+        run: sudo docker container rm -f $(docker container ls -aq)
   
       - name: remove existing docker images
-        run: docker image rm -f $(docker image ls -q)
+        run: sudo docker image rm -f $(docker image ls -q)
       
       - name: make new docker
-        run: docker-compose up -d
+        run: sudo docker-compose up -d
         
           
           
