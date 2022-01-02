@@ -90,7 +90,7 @@ jobs:
 #           sudo docker rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-postgres:latest
       
       - name: make new docker
-        run: sudo docker-compose up
+        run: sudo docker-compose up -
         
           
           
