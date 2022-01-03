@@ -75,14 +75,14 @@ jobs:
     name: Deploy
     runs-on: [ self-hosted, label-postgres ]
     steps:
-#       - name: remove existing docker containers
-#         run: sudo docker container rm -f $(docker container ls -aq)
+     - name: remove existing docker containers
+       run: sudo docker container rm -f $(docker container ls -aq)
   
-#       - name: remove existing docker images
-#         run: sudo docker image rm -f $(docker image ls -q)
+     - name: remove existing docker images
+       run: sudo docker image rm -f $(docker image ls -q)
       
-      - name: make new docker
-        run: sudo docker-compose up -d
+     - name: make new docker
+       run: sudo docker-compose up -d
         
           
           
