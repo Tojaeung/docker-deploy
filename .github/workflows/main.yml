@@ -76,11 +76,19 @@ jobs:
     runs-on: [ self-hosted, label-postgres ]
     steps:
      - name: remove existing docker containers
-       run: sudo docker container rm -f $(docker container ls -aq)
-  
-     - name: remove existing docker images
-       run: sudo docker image rm -f $(docker image ls -q)
+       run: |
+        sudo docker container rm -f postgres
+        sudo docker container rm -f nginx
+        sudo docker container rm -f frontend
+        sudo docker container rm -f backend
       
+     - name: remove existing docker images
+       run: | 
+        sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
+        sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
+        sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
+        sudo docker image rmi postgres
+        
      - name: make new docker
        run: sudo docker-compose up -d
         
