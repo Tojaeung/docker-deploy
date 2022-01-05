@@ -81,11 +81,11 @@ jobs:
           sudo docker container rm -f frontend
           sudo docker container rm -f backend
 
-      #  - name: remove existing docker images
-      #    run: |
-      #     sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
-      #     sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
-      #     sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
+      - name: remove existing docker images
+        run: |
+          sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-frontend:latest
+          sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-backend:latest
+          sudo docker image rmi ${{ secrets.DOCKER_HUB_USERNAME }}/postgres-app-nginx:latest
 
       - name: make new docker
         run: sudo docker-compose up -d
